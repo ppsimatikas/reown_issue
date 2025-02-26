@@ -3,17 +3,15 @@ import {useAccount, useSignMessage} from "wagmi";
 import {useEffect} from "react";
 
 function App() {
-    const {address, isReconnecting, isDisconnected} = useAccount()
-    // const {user} = useLogin(address)
+    const {address} = useAccount()
     const {signMessageAsync} = useSignMessage()
+    const message = `Sign this message to log in: ${address}`;
 
     useEffect(() => {
-        const message = `Sign this message to log in: ${address}`;
-        if (address) {
-            signMessageAsync({message}).then(console.log).catch(console.error);
+        if(address) {
+            signMessageAsync({message}).then(console.log).catch(alert)
         }
-    }, [address]);
-
+    }, [address])
 
     return (
         <div>
